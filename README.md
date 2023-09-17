@@ -7,58 +7,48 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## 專案
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+我建立的專案中主要可以查看以下兩個功能:Task 與 User
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Task
+<img src="https://i.imgur.com/RsjMUhv.jpeg" alt="任務總覽"></a>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- User
+<img src="https://i.imgur.com/DjinfOv.jpeg" alt="使用者總覽"></a>
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 說明
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Task 
+在任務列表中，沒有做任何權限設定，任何登入後台的人皆可操作CRUD
 
-## Laravel Sponsors
+- User 
+在使用者列表中，只有admin可以操作CRUD，其中我設定的角色(role)只有user/admin
+展示如下圖:
+- **[user]
+<img src="https://i.imgur.com/DjinfOv.jpeg" alt="一般使用者總覽"></a>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
+- **[admin]
+<img src="https://i.imgur.com/oTSsnTW.jpeg" alt="管理者總覽"></a>
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## 設計說明
 
-## Contributing
+- Task
+沒甚麼好說的
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- User
+1.在資料庫中主要以enum方法限定資料欄位role只能接受user/admin兩種角色
+2.初始資料將會新增兩個使用者admin/user1，詳情資訊(email、密碼...等)請自行去看seeder
+3.只有admin將賦予所有權限，從controller到view都有做相關設定，而user只能看
 
-## Code of Conduct
+### 安裝說明
+本專案是基於laravel 8 Jetstream開發，相關安裝說明可以參考[官網](https://jetstream.laravel.com/installation.html)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+> [!IMPORTANT]  
+> 由於@vite是在laravel 9底下才能運作的，所以需要到view/layout中的app和guest移除，並用舊的方法載入
+> `<link rel="stylesheet" href="{{ asset('css/app.css') }}">`
+> `<script src="{{ asset('js/app.js') }}" defer></script>`
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+基礎環境設定好後，請在終端中再專案底下執行 `php artisan migrate:fresh`和 `php artisan db:seed  --class=UserRoleSeeder`即可使用
