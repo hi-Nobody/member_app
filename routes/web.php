@@ -28,3 +28,4 @@ Route::middleware([
 });
 
 Route::resource('tasks',\App\Http\Controllers\TaskController::class);
+Route::resource('users', \App\Http\Controllers\UserController::class);
