@@ -51,4 +51,19 @@
 > `<link rel="stylesheet" href="{{ asset('css/app.css') }}">`
 > `<script src="{{ asset('js/app.js') }}" defer></script>`
 
-基礎環境設定好後，請在終端中再專案底下執行 `php artisan migrate:fresh`和 `php artisan db:seed  --class=UserRoleSeeder`即可使用
+1.建立sql檔:在database底下新增member.sqlite的檔案
+2.複製.env.example後，改名為.env
+3.在.env中修改以下資訊
+`DB_CONNECTION=sqlite`
+`DB_DATABASE=../database/member.sqlite`
+> [!IMPORTANT]  
+> 由於php artisan serve和開發中所吃的相對路徑不同，
+> 所以當想要開發時，`DB_DATABASE=../database/member.sqlite`要改成`DB_DATABASE=database/member.sqlite`才能正常使用
+
+4.在config/database.php中修改以下資訊
+`'database' => env('DB_DATABASE', database_path('member.sqlite'))`
+5.基礎環境設定好後，請在終端中再專案底下執行 
+`php artisan migrate:fresh`
+和 
+`php artisan db:seed  --class=UserRoleSeeder`
+即可使用。
